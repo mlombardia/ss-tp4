@@ -1,3 +1,3 @@
 public interface Integrator {
-  public void updateData();
+  public void updateData(double deltaT, Particle particle);
 }
