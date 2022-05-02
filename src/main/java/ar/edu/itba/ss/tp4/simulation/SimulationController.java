@@ -18,6 +18,8 @@ public class SimulationController {
 
   public void simulate() {
     while(true) {
+      System.out.println(this.particle.xVel);
+      System.out.println(this.particle.xPos);
       this.integrator.updateData(deltaT, particle);
     }
   }
