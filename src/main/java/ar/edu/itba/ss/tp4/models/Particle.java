@@ -1,3 +1,5 @@
+package ar.edu.itba.ss.tp4.models;
+
 public class Particle {
   public double xPos;
   public double yPos;
