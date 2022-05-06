@@ -9,6 +9,8 @@ public class SimulationController {
   private Particle particle;
   private Integrator integrator;
 
+  public static double k = Math.pow(10, 4);
+
   public SimulationController(double deltaT, Integrator integrator) {
     this.acceleration = 0;
     this.deltaT = deltaT;
