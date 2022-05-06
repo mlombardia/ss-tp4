@@ -16,9 +16,10 @@ public class VelocityVerlet implements Integrator {
 
     @Override
     public void updateData(double deltaT, Particle particle) {
-        double force = -k * particle.xPos;
+        double force = -k * particle.xPos - 100 * particle.xVel;
         getNewPosition(deltaT, particle, force);
-        getNewVelocity(deltaT, particle, force, -k * particle.xPos);
+        double newForce = -k * particle.xPos;
+        getNewVelocity(deltaT, particle, force, newForce);
     }
 
 }
