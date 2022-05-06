@@ -20,6 +20,6 @@ public class Analytical implements Integrator {
   @Override
   public void updateData(double deltaT, Particle particle) {
     this.t += deltaT;
-    particle.xPos = amplitude * Math.exp(-(this.gamma/(2*particle.weight))*this.t) * Math.cos(Math.sqrt((this.k/particle.weight)-(Math.pow(this.gamma,2)/(Math.pow(particle.weight,2)*4))* this.t));
+    particle.xPos = amplitude * Math.exp(-(this.gamma/(2*particle.weight))*this.t) * Math.cos(Math.sqrt((this.k/particle.weight)-(Math.pow(this.gamma,2)/(Math.pow(particle.weight,2)*4)))* this.t);
   }
 }

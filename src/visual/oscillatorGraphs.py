@@ -94,10 +94,11 @@ for line in InputLines:
 
 fig, ax = plt.subplots()
 
-ax.scatter(timeAnalytic, positionAnalytic, color="red")
-ax.scatter(timeGP5, positionGP5, color="green")
-ax.scatter(timeBeeman, positionBeeman, color="black")
-ax.scatter(timeVerlet, positionVerlet, color="yellow")
+ax.plot(timeAnalytic, positionAnalytic, color="red")
+ax.plot(timeGP5, positionGP5, color="green")
+ax.plot(timeBeeman, positionBeeman, color="black")
+ax.plot(timeVerlet, positionVerlet, color="yellow")
+
 
 ##ax.set_title("Comparacion de integradores en oscilador")
 ax.set_xlabel('Tiempo (s)')
@@ -105,6 +106,7 @@ ax.set_ylabel('Posicion')
 
 plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
 ax.xaxis.major.formatter._useMathText = True
+ax.legend(('Analytic','GP5', 'Beeman', 'Verlet'))
 plt.show()
 plt.close(fig)
 
