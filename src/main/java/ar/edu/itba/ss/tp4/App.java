@@ -1,7 +1,10 @@
 package ar.edu.itba.ss.tp4;
 
 import ar.edu.itba.ss.tp4.integrators.Beeman;
+import ar.edu.itba.ss.tp4.integrators.GP5;
 import ar.edu.itba.ss.tp4.integrators.Integrator;
+import ar.edu.itba.ss.tp4.models.FileOscillatorGenerator;
+import ar.edu.itba.ss.tp4.integrators.VelocityVerlet;
 import ar.edu.itba.ss.tp4.simulation.SimulationController;
 
 /**
@@ -10,9 +13,24 @@ import ar.edu.itba.ss.tp4.simulation.SimulationController;
  */
 public class App {
   public static void main( String[] args ) {
+    //beeman
+    FileOscillatorGenerator fileGeneratorBeeman = new FileOscillatorGenerator("OscillatorBeeman");
     Integrator beeman = new Beeman();
     Integrator analytical = new Analytical(1, 100, Math.pow(10,4));
     SimulationController controller = new SimulationController(0.0001,beeman);
     controller.simulate();
+
+    //gp5
+    FileOscillatorGenerator fileGeneratorGP5 = new FileOscillatorGenerator("OscillatorGP5");
+    Integrator gp5 = new GP5();
+    SimulationController controller2 = new SimulationController(0.0001, gp5, fileGeneratorGP5);
+    controller2.simulate();
+
+    //verlet
+    FileOscillatorGenerator fileGeneratorVerlet = new FileOscillatorGenerator("OscillatorVerlet");
+    Integrator verlet = new VelocityVerlet();
+    SimulationController controller3 = new SimulationController(0.0001, verlet, fileGeneratorVerlet);
+    controller3.simulate();
+
   }
 }
