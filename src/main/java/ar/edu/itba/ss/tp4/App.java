@@ -26,10 +26,10 @@ public class App {
     controller2.simulate();
 
     //verlet
-    //FileOscillatorGenerator fileGeneratorVerlet = new FileOscillatorGenerator("OscillatorVerlet");
-    //Integrator verlet = new Verlet();
-    //SimulationController controller3 = new SimulationController(0.0001, verlet, fileGeneratorVerlet);
-    //controller3.simulate();
+    FileOscillatorGenerator fileGeneratorVerlet = new FileOscillatorGenerator("OscillatorVerlet");
+    Integrator verlet = new VelocityVerlet();
+    SimulationController controller3 = new SimulationController(0.0001, verlet, fileGeneratorVerlet);
+    controller3.simulate();
 
   }
 }
