@@ -7,14 +7,16 @@ public class Particle {
   public double yVel;
   public double weight;
   public double acceleration;
+  public double color;
 
-  public Particle(double xPos, double yPos, double xVel, double yVel, double weight){
+  public Particle(double xPos, double yPos, double xVel, double yVel, double weight, double color){
     this.xPos = xPos;
     this.yPos = yPos;
     this.xVel = xVel;
     this.yVel = yVel;
     this.weight = weight;
     this.acceleration = 0;
+    this.color = color;
   }
 
   public void udpateVel(double xVel, double yVel){
