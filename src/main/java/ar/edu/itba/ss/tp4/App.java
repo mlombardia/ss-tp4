@@ -4,6 +4,7 @@ import ar.edu.itba.ss.tp4.integrators.Beeman;
 import ar.edu.itba.ss.tp4.integrators.GP5;
 import ar.edu.itba.ss.tp4.integrators.Integrator;
 import ar.edu.itba.ss.tp4.models.FileOscillatorGenerator;
+import ar.edu.itba.ss.tp4.models.FileRadiationGenerator;
 import ar.edu.itba.ss.tp4.simulation.SimulationController;
 
 /**
@@ -30,5 +31,7 @@ public class App {
     //SimulationController controller3 = new SimulationController(0.0001, verlet, fileGeneratorVerlet);
     //controller3.simulate();
 
+    FileRadiationGenerator fileRadiationGenerator = new FileRadiationGenerator();
+    fileRadiationGenerator.addParticles();
   }
 }
