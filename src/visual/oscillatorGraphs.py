@@ -1,14 +1,14 @@
 from cmath import sqrt
 from os import times
-from turtle import position
+from turtle import color, position
 import numpy as np
 import math
 from matplotlib import pyplot as plt
 from statistics import mean 
 
 # Read Analytic input
-'''
-file = open("../../OscillatorAnalytic.csv", 'r')
+
+file = open("../../OscillatorAnalytical.csv", 'r')
 InputLines = file.readlines()
 
 positionAnalytic = []
@@ -26,7 +26,7 @@ for line in InputLines:
         str = line.strip().split(',')
         timeAnalytic.append(float(str[2]))
     count += 1
-'''
+
 
 # Read GP5 input
 file = open("../../OscillatorGP5.csv", 'r')
@@ -71,7 +71,7 @@ for line in InputLines:
 
 
 # Read Verlet input
-'''
+
 file = open("../../OscillatorVerlet.csv", 'r')
 InputLines = file.readlines()
 
@@ -90,13 +90,14 @@ for line in InputLines:
         str = line.strip().split(',')
         timeVerlet.append(float(str[2]))
     count += 1
-'''
+
 
 fig, ax = plt.subplots()
 
-ax.scatter(timeGP5, positionGP5)
-ax.scatter(timeBeeman, positionBeeman)
-'''ax.scatter(timeVerlet, positionVerlet)'''
+ax.scatter(timeAnalytic, positionAnalytic, color="red")
+ax.scatter(timeGP5, positionGP5, color="green")
+ax.scatter(timeBeeman, positionBeeman, color="black")
+ax.scatter(timeVerlet, positionVerlet, color="yellow")
 
 ##ax.set_title("Comparacion de integradores en oscilador")
 ax.set_xlabel('Tiempo (s)')

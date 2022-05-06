@@ -2,10 +2,12 @@ package ar.edu.itba.ss.tp4;
 
 import ar.edu.itba.ss.tp4.integrators.Beeman;
 import ar.edu.itba.ss.tp4.integrators.GP5;
+
 import ar.edu.itba.ss.tp4.integrators.Integrator;
 import ar.edu.itba.ss.tp4.models.FileOscillatorGenerator;
 import ar.edu.itba.ss.tp4.integrators.VelocityVerlet;
 import ar.edu.itba.ss.tp4.models.FileRadiationGenerator;
+import ar.edu.itba.ss.tp4.integrators.Analytical;
 import ar.edu.itba.ss.tp4.simulation.SimulationController;
 
 /**
@@ -17,9 +19,14 @@ public class App {
     //beeman
     FileOscillatorGenerator fileGeneratorBeeman = new FileOscillatorGenerator("OscillatorBeeman");
     Integrator beeman = new Beeman();
-    Integrator analytical = new Analytical(1, 100, Math.pow(10,4));
-    SimulationController controller = new SimulationController(0.0001,beeman);
+    SimulationController controller = new SimulationController(0.0001,beeman, fileGeneratorBeeman);
     controller.simulate();
+
+    //analystical
+    FileOscillatorGenerator fileGeneratorAnalytical = new FileOscillatorGenerator("OscillatorAnalytical");
+    Integrator analytical = new Analytical(1, 100, Math.pow(10,4));
+    SimulationController controller4 = new SimulationController(0.0001,analytical, fileGeneratorAnalytical);
+    controller4.simulate();
 
     //gp5
     FileOscillatorGenerator fileGeneratorGP5 = new FileOscillatorGenerator("OscillatorGP5");
@@ -33,6 +40,7 @@ public class App {
     SimulationController controller3 = new SimulationController(0.0001, verlet, fileGeneratorVerlet);
     controller3.simulate();
 
+    //radiation particles
     FileRadiationGenerator fileRadiationGenerator = new FileRadiationGenerator();
     fileRadiationGenerator.addParticles();
   }
