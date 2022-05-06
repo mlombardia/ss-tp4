@@ -12,15 +12,15 @@ public class GP5 implements Integrator {
   public void calculatePrevious(Particle particle){
     previous[0] = new Vector(particle.xPos, particle.yPos);;
     previous[1] = new Vector(particle.xVel, particle.yVel);
-    //previous[2] = previous[0].multiply((-k)/particle.weight);
-    //previous[3] = previous[1].multiply((-k)/particle.weight);
-    //previous[4] = previous[0].multiply(Math.pow((k/particle.weight),2));
-    //previous[5] = previous[1].multiply(Math.pow((k/particle.weight),2));
+    previous[2] = previous[0].multiply(-k/particle.weight);
+    previous[3] = previous[1].multiply(-k/particle.weight);
+    previous[4] = previous[2].multiply(-k/particle.weight);
+    previous[5] = previous[3].multiply(-k/particle.weight);
 
-    previous[2] = previous[0].multiply(new Vector(-(-k*previous[0].x - viscocity*previous[1].x)/particle.weight, 0));
-    previous[3] = previous[1].multiply(new Vector(-(-k*previous[0].x - viscocity*previous[1].x)/particle.weight, 0));
-    previous[4] = previous[0].multiply(new Vector((-k*previous[0].x - viscocity*previous[1].x)/particle.weight, 0).multiply(new Vector((-k*previous[0].x - viscocity*previous[1].x)/particle.weight, 0)));
-    previous[5] = previous[1].multiply(new Vector((-k*previous[0].x - viscocity*previous[1].x)/particle.weight, 0).multiply(new Vector((-k*previous[0].x - viscocity*previous[1].x)/particle.weight, 0)));
+    //previous[2] = previous[0].multiply(new Vector((k*previous[0].x + viscocity*previous[1].x)/particle.weight, 0));
+    //previous[3] = previous[1].multiply(new Vector((k*previous[0].x + viscocity*previous[1].x)/particle.weight, 0));
+    //previous[4] = previous[0].multiply(new Vector((-k*previous[0].x - viscocity*previous[1].x)/particle.weight, 0).multiply(new Vector((-k*previous[0].x - viscocity*previous[1].x)/particle.weight, 0)));
+    //previous[5] = previous[1].multiply(new Vector((-k*previous[0].x - viscocity*previous[1].x)/particle.weight, 0).multiply(new Vector((-k*previous[0].x - viscocity*previous[1].x)/particle.weight, 0)));
 
   }
 
