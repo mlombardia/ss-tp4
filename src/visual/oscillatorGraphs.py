@@ -94,10 +94,10 @@ for line in InputLines:
 
 fig, ax = plt.subplots()
 
-ax.plot(timeAnalytic, positionAnalytic, color="red")
-ax.plot(timeGP5, positionGP5, color="green")
-ax.plot(timeBeeman, positionBeeman, color="black")
-ax.plot(timeVerlet, positionVerlet, color="yellow")
+ax.plot(timeAnalytic, positionAnalytic, color="#E63B60")
+ax.plot(timeGP5, positionGP5, color="#067FD0", dashes=[2, 2, 5, 2]) # 2pt line, 2pt break, 10pt line, 2pt break
+ax.plot(timeBeeman, positionBeeman, color="#4ADEDE", dashes=[2, 2])
+ax.plot(timeVerlet, positionVerlet, color="#151A7B", dashes=[1, 2, 3, 2])
 
 
 ##ax.set_title("Comparacion de integradores en oscilador")
