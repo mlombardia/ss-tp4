@@ -1,13 +1,12 @@
 package ar.edu.itba.ss.tp4;
 
-import ar.edu.itba.ss.tp4.integrators.Beeman;
-import ar.edu.itba.ss.tp4.integrators.GP5;
+import ar.edu.itba.ss.tp4.sistema1.Beeman;
+import ar.edu.itba.ss.tp4.sistema1.GP5;
 
-import ar.edu.itba.ss.tp4.integrators.Integrator;
+import ar.edu.itba.ss.tp4.sistema1.Integrator;
 import ar.edu.itba.ss.tp4.models.FileOscillatorGenerator;
-import ar.edu.itba.ss.tp4.integrators.VelocityVerlet;
-import ar.edu.itba.ss.tp4.models.FileRadiationGenerator;
-import ar.edu.itba.ss.tp4.integrators.Analytical;
+import ar.edu.itba.ss.tp4.sistema1.VelocityVerlet;
+import ar.edu.itba.ss.tp4.sistema1.Analytical;
 import ar.edu.itba.ss.tp4.simulation.RadiationSimulator;
 import ar.edu.itba.ss.tp4.simulation.SimulationController;
 

@@ -1,7 +1,7 @@
 package ar.edu.itba.ss.tp4.simulation;
 
-import ar.edu.itba.ss.tp4.integrators.GP5;
-import ar.edu.itba.ss.tp4.integrators.Integrator;
+import ar.edu.itba.ss.tp4.sistema1.GP5;
+import ar.edu.itba.ss.tp4.sistema1.Integrator;
 import ar.edu.itba.ss.tp4.models.FileOscillatorGenerator;
 import ar.edu.itba.ss.tp4.models.Particle;
 
