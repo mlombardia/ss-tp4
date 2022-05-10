@@ -51,18 +51,21 @@ public class RadiationSimulator {
     }
 
     public void simulate() {
-        while (cutCondition()) {
+        boolean firstStep = true;
+        while (!cutCondition(firstStep)) {
+            System.out.printf("%b %b\n", particles.get(0).xPos, particles.get(0).yPos);
             verlet.updateData(deltaT);
+            firstStep = false;
         }
         fileRadiationGenerator.closeFiles();
     }
 
-    public boolean cutCondition() {
+    public boolean cutCondition(boolean firstStep) {
         Particle particle = particles.get(0);
         double distance;
-        if (particle.xPos == 0 || particle.xPos == L || particle.yPos == 0 || particle.yPos == L)
+        if ((!firstStep && particle.xPos <= 0) || particle.xPos >= L || particle.yPos <= 0 || particle.yPos >= L) {
             return true;
-        else {
+        } else {
             for (Particle p : particles) {
                 distance = Math.sqrt(Math.pow(particle.xPos - p.xPos, 2) + Math.pow(particle.yPos - p.yPos, 2));
                 if (distance < DCut) {
