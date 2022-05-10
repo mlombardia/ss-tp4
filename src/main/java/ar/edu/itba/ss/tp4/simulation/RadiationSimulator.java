@@ -12,12 +12,12 @@ public class RadiationSimulator {
     public static double k = Math.pow(10, 10);
     public static double Q = Math.pow(10, -19);
     public double M = Math.pow(10, -27);
-    public double D = Math.pow(10, -8);
+    public static double D = Math.pow(10, -8);
 
     private final double DCut = D * 0.01;
 
-    public double N = 256;
-    public double L = Math.sqrt(N) * D;
+    public static double N = Math.pow(16, 2);
+    public static double L = Math.sqrt(N) * D;
 
     public static List<Particle> particles = new ArrayList<>();
 
@@ -39,11 +39,11 @@ public class RadiationSimulator {
         boolean isPositive = false;
         boolean lastRow;
         int id = 0;
-        particles.add(new Particle(id++, 0, initialPos, 0, 0, M, 0, true));
-        for (double i = 0; i < L; i += D) {
+        particles.add(new Particle(id++, 0, initialPos, 5 * Math.pow(10, 3), 5 * Math.pow(10, 4), M, 0, true));
+        for (int i = 0; i < N; i++) {
             lastRow = isPositive;
-            for (double j = 0; j < L; j += D) {
-                particles.add(new Particle(id++, i, j, 0, 0, M, isPositive ? 0.5 : 1, isPositive));
+            for (int j = 0; j < N; j++) {
+                particles.add(new Particle(id++, D + (i * D), 0 + (j * D), 0, 0, M, isPositive ? 0.5 : 1, isPositive));
                 isPositive = !isPositive;
             }
             isPositive = !lastRow;
@@ -54,6 +54,7 @@ public class RadiationSimulator {
         boolean firstStep = true;
         while (!cutCondition(firstStep)) {
             verlet.updateData(deltaT);
+            System.out.printf("%f %f\n", particles.get(0).xPos, particles.get(0).yPos);
             firstStep = false;
         }
         fileRadiationGenerator.closeFiles();
@@ -62,7 +63,7 @@ public class RadiationSimulator {
     public boolean cutCondition(boolean firstStep) {
         Particle particle = particles.get(0);
         double distance;
-        if (particle.xPos >= L || particle.yPos <= 0 || particle.yPos >= L) {
+        if ((!firstStep && particle.xPos <= 0) || particle.xPos >= L || particle.yPos <= 0 || particle.yPos >= L) {
             System.out.println("a");
             return true;
         } else {

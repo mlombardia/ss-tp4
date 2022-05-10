@@ -8,14 +8,15 @@ public class VelocityVerlet {
     private double[] getForce() {
         Particle movingParticle = particles.get(0);
         double force = movingParticle.charge * k;
-        double sumX = 0, sumY = 0, rx, ry, r;
+        double sumX = 0, sumY = 0, rx, ry, r, q;
         for (Particle particle : particles) {
             if (!particle.equals(movingParticle)) {
                 rx = Math.abs(particle.xPos - movingParticle.xPos);
                 ry = Math.abs(particle.yPos - movingParticle.yPos);
                 r = Math.sqrt(Math.pow(rx, 2) + Math.pow(ry, 2));
-                sumX += (particle.charge / Math.pow(r, 2)) * rx / r;
-                sumY += (particle.charge / Math.pow(r, 2)) * ry / r;
+                q = particle.charge / Math.pow(r, 2);
+                sumX += q * rx / r;
+                sumY += q * ry / r;
             }
         }
         return new double[]{force * sumX, force * sumY};
