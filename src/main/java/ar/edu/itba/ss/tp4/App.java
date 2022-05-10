@@ -43,7 +43,7 @@ public class App {
     SimulationController controller3 = new SimulationController(deltaT, verlet, fileGeneratorVerlet);
 
     double timeAux = System.currentTimeMillis()/1000.0;
-    while(time < 10000) {
+    while(time < 50000) {
       controller.simulate(time);
       controller4.simulate(time);
       controller2.simulate(time);
@@ -57,7 +57,7 @@ public class App {
 
 
     //radiation particles
-    RadiationSimulator radiationSimulator = new RadiationSimulator();
+    RadiationSimulator radiationSimulator = new RadiationSimulator(deltaT);
     radiationSimulator.simulate();
   }
 }
