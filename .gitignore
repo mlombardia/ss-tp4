@@ -28,6 +28,5 @@ hs_err_pid*
 
 #others
 .DS_Store
-*.txt
 *.xyz
 *.csv

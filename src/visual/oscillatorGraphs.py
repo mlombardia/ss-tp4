@@ -98,10 +98,10 @@ ax.plot(timeGP5, positionGP5, color="#067FD0", dashes=[2, 2, 5, 2]) # 2pt line, 
 ax.plot(timeBeeman, positionBeeman, color="#4ADEDE", dashes=[2, 2])
 ax.plot(timeVerlet, positionVerlet, color="#151A7B", dashes=[1, 2, 3, 2])
 
-##plt.xlim(0, 5.1547 * 1)
+plt.xlim(0, 5.1547 * 1)
+##Escala para ver con zoom
 ##plt.xlim(3.1544, 3.1547)
-##plt.ylim(0.055, 0.061)
-##ax.set_title("Comparacion de integradores en oscilador")
+##plt.ylim(0.999806, 1.00064)
 ax.set_xlabel('Tiempo (s)')
 ax.set_ylabel('Posicion (m)')
 
@@ -144,11 +144,14 @@ InputLines = file.readlines()
 
 errors = []
 dts = []
+count = 0
 
 for line in InputLines:
-    str = line.strip().split(' ')
-    errors.append(float(str[0]))
-    dts.append(float(str[1]))
+    if count >= 1:
+        str = line.strip().split(' ')
+        errors.append(float(str[0]))
+        dts.append(float(str[1]))
+    count += 1
 
 fig, ax = plt.subplots()
 
@@ -171,11 +174,14 @@ InputLines = file.readlines()
 
 errors = []
 dts = []
+count = 0
 
 for line in InputLines:
-    str = line.strip().split(' ')
-    errors.append(float(str[0]))
-    dts.append(float(str[1]))
+    if count >= 1:
+        str = line.strip().split(' ')
+        errors.append(float(str[0]))
+        dts.append(float(str[1]))
+    count += 1
 
 fig, ax = plt.subplots()
 ax.scatter(dts, errors)
@@ -196,11 +202,14 @@ InputLines = file.readlines()
 
 errors = []
 dts = []
+count = 0
 
 for line in InputLines:
-    str = line.strip().split(' ')
-    errors.append(float(str[0]))
-    dts.append(float(str[1]))
+    if count >= 1:
+        str = line.strip().split(' ')
+        errors.append(float(str[0]))
+        dts.append(float(str[1]))
+    count += 1
 
 fig, ax = plt.subplots()
 

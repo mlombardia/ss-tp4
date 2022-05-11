@@ -13,9 +13,7 @@ public class Particle {
     public double weight;
     public double acceleration;
     public double color;
-    public boolean electricCharge;
     public boolean positiveCharge;
-
     public double charge;
 
     public Particle(double xPos, double yPos, double xVel, double yVel, double weight) {

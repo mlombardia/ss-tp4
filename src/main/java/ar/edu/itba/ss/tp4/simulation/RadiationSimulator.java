@@ -13,7 +13,7 @@ public class RadiationSimulator {
     public static double Q = Math.pow(10, -19);
     public double M = Math.pow(10, -27);
     public static double D = Math.pow(10, -8);
-    public static double Delta2 = 0.1;
+    public static double Delta2 = 10;
     private final double DCut = D * 0.01;
 
     public static double N = Math.pow(16, 2);
@@ -40,7 +40,7 @@ public class RadiationSimulator {
         boolean isPositive = true;
         boolean lastRow;
         int id = 0;
-        particles.add(new Particle(id++, 0, initialPos, 9 * Math.pow(10, 3), 0, M, 0.5, true));
+        particles.add(new Particle(id++, 0, initialPos, 5 * Math.pow(10, 4), 0, M, 0.5, true));
         for (int i = 0; i < Math.sqrt(N); i++) {
             lastRow = isPositive;
             for (int j = 0; j < Math.sqrt(N); j++) {
@@ -53,20 +53,28 @@ public class RadiationSimulator {
     }
 
     public void simulate() {
+        double energiaCinetica = 0;
+        double energiaPotencial = 0;
         boolean firstStep = true;
         double time = 0;
         double time0 = System.currentTimeMillis();
         while (!cutCondition(firstStep)) {
             verlet.updateData(deltaT);
-            System.out.printf("%.12f %.12f\n", particles.get(0).xPos, particles.get(0).yPos);
 
             firstStep = false;
-            //if(time > Delta2){
+            if(time > Delta2){
                 fileRadiationGenerator.addParticles(particles);
-            //}
+                System.out.printf("%.12f %.12f\n", particles.get(0).xPos, particles.get(0).yPos);
+                time = 0;
+            }
             time += ((System.currentTimeMillis() -time0)/1000.0);
+            energiaCinetica += calculatesCineticEnergy();
+            energiaPotencial += calculatesPotentialEnergy();
         }
         fileRadiationGenerator.closeFiles();
+        System.out.println("Energia Total = " + (energiaCinetica + energiaPotencial));
+        System.out.println("Energia Cinetica = " + energiaCinetica);
+        System.out.println("Energia Potencial = " + energiaPotencial);
     }
 
     public boolean cutCondition(boolean firstStep) {
@@ -87,5 +95,27 @@ public class RadiationSimulator {
 
 
         return false;
+    }
+
+    public double calculatesCineticEnergy(){
+        double velocity = Math.sqrt(Math.pow(particles.get(0).xVel,2) + Math.pow(particles.get(0).yVel,2));
+        return (0.5*particles.get(0).weight*Math.pow(velocity,2));
+    }
+
+    public double calculatesPotentialEnergy(){
+        Particle movingParticle = particles.get(0);
+        double energy = movingParticle.charge * k;
+        double sumX = 0, sumY = 0, rx, ry, r, q;
+        for (Particle particle : particles) {
+            if (!particle.equals(movingParticle)) {
+                rx = Math.abs(particle.xPos - movingParticle.xPos);
+                ry = Math.abs(particle.yPos - movingParticle.yPos);
+                r = Math.sqrt(Math.pow(rx, 2) + Math.pow(ry, 2));
+                q = particle.charge / r;
+                sumX += q;
+                sumY += q;
+            }
+        }
+        return (energy*sumX + energy*sumY);
     }
 }
