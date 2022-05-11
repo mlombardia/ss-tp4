@@ -36,7 +36,6 @@ public class Particle {
         this.weight = weight;
         this.acceleration = 0;
         this.color = color;
-        this.electricCharge = true;
         this.positiveCharge = positiveCharge;
         this.charge = positiveCharge ? Q : -Q;
     }
@@ -49,7 +48,6 @@ public class Particle {
         this.weight = weight;
         this.acceleration = 0;
         this.color = color;
-        this.electricCharge = true;
         this.positiveCharge = positiveCharge;
         this.charge = positiveCharge ? Q : -Q;
     }
