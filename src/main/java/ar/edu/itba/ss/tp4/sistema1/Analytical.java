@@ -21,7 +21,7 @@ public class Analytical implements Integrator {
         this.t += deltaT;
         double T1 = Math.exp(-(this.gamma / (2 * particle.weight)) * this.t);
         double T3 = Math.pow((this.k / particle.weight) - ((Math.pow(this.gamma, 2) / (Math.pow(2 * particle.weight, 2)))), 0.5);
-        double T2 = Math.cos( T3 * this.t);
+        double T2 = Math.cos(T3 * this.t);
         particle.xPos = amplitude * T1 * T2;
     }
 }

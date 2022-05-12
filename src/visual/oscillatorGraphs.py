@@ -100,8 +100,8 @@ ax.plot(timeVerlet, positionVerlet, color="#151A7B", dashes=[1, 2, 3, 2])
 
 plt.xlim(0, 5.1547 * 1)
 ##Escala para ver con zoom
-##plt.xlim(3.1544, 3.1547)
-##plt.ylim(0.999806, 1.00064)
+# plt.xlim(3.1544, 3.1547)
+# plt.ylim(0.9868, 0.9870)
 ax.set_xlabel('Tiempo (s)')
 ax.set_ylabel('Posicion (m)')
 
@@ -114,7 +114,7 @@ plt.close(fig)
 
 
 ## CALCULO LOS ERRORES
-'''errorAuxB = []
+errorAuxB = []
 errorAuxB = np.square(np.subtract(positionAnalytic,positionBeeman)).mean()
 errorAuxG = []
 errorAuxG = np.square(np.subtract(positionAnalytic,positionGP5)).mean()
@@ -124,7 +124,7 @@ errorAuxV = np.square(np.subtract(positionAnalytic,positionVerlet)).mean()
 print(errorAuxB)
 print(errorAuxG)
 print(errorAuxV)
-'''
+
 
 summation = 0  #variable to store the summation of differences
 n = len(positionAnalytic) #finding total number of items in list

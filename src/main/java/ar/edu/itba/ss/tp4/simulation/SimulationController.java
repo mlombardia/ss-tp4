@@ -19,6 +19,7 @@ public class SimulationController {
     this.acceleration = 0;
     this.deltaT = deltaT;
     this.particle = new Particle(1,0,0,0,70);
+    this.particle.xVel =  -1 * 100/(2* particle.weight);
     this.integrator = integrator;
     this.fileGenerator = fileGenerator;
     if(integrator instanceof GP5){
