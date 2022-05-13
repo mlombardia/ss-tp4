@@ -122,7 +122,7 @@ public class RadiationSimulator {
         for (Particle p : particles) {
             distance = Math.sqrt(Math.pow(particle.xPos - p.xPos, 2) + Math.pow(particle.yPos - p.yPos, 2));
             if (!p.equals(particle) && distance < DCut) {
-                System.out.printf("%.20f\n", longitudRecorrida);
+//                System.out.printf("%.20f\n", longitudRecorrida);
                 return true;
             }
         }

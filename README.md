@@ -21,7 +21,13 @@ Para ver los graficos producidos con la informacion generada, dirigirse a la car
 ```sh
 python oscillatorGraphs.py
 ```
-para ver la comparacion de los diferentes algoritmos para el inciso del Oscilador Puntual Amortiguado, asi como tambien la evolucion de la energia total del sistema del inciso Interacción de la radiación con la materia, asi como las longitudes promedio de estas simulaciones y la proporcion de particulas que no son absorbidas por el material.
+para ver la comparacion de los diferentes algoritmos para el inciso del Oscilador Puntual Amortiguado.
+
+Luego, ejecutar
+```sh
+python radiationGraphs.py
+```
+para poder observar la evolucion de la energia total del sistema del inciso Interacción de la radiación con la materia, asi como las longitudes promedio de estas simulaciones y la proporcion de particulas que no son absorbidas por el material.
 
 Por ultimo, se puede ejecutar
 ```sh
