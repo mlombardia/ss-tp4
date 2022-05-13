@@ -35,6 +35,7 @@ plt.plot(bin_centers_5,n5, color="blue")
 
 plt.ylabel('Cantidad de particulas')
 plt.xlabel('Distancia Recorrida (m)')
+plt.grid()
 
 plt.legend(('5*10³','7.5*10³', '10*10³', '2.5*10⁴', '5*10⁴'))
 

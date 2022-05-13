@@ -108,6 +108,8 @@ ax.set_ylabel('Posicion (m)')
 plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
 ax.xaxis.major.formatter._useMathText = True
 ax.legend(('Analytic','GP5', 'Beeman', 'Verlet'))
+
+plt.grid()
 plt.show()
 plt.close(fig)
 
@@ -163,6 +165,7 @@ ax.set_ylabel('error (m)')
 plt.xlim(3.1544 * 0 , 0.0006 * 1)
 plt.ylim(0.9826452 * 0, 0.0007 * 1)
 
+plt.grid()
 plt.show()
 plt.close(fig)
 
@@ -192,6 +195,7 @@ ax.set_ylabel('error (m)')
 plt.xlim(3.1544 * 0 , 0.0006 * 1)
 plt.ylim(0.9826452 * 0, 0.0007 * 1)
 
+plt.grid()
 plt.show()
 plt.close(fig)
 
@@ -221,5 +225,6 @@ ax.set_ylabel('error (m)')
 plt.xlim(3.1544 * 0 , 0.0006 * 1)
 plt.ylim(0.9826452 * 0, 0.0007 * 1)
 
+plt.grid()
 plt.show()
 plt.close(fig)
