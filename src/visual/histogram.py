@@ -14,23 +14,27 @@ data3 = loadtxt("data3.txt")
 data4 = loadtxt("data4.txt")
 data5 = loadtxt("data5.txt")
 
-n1,x1,_ = plt.hist(data1, bins = 10, histtype=u'step')
+bin = 6
+n1,x1,_ = plt.hist(data1, bins = bin, histtype=u'step')
 bin_centers_1 = 0.5*(x1[1:]+x1[:-1])
-n2,x2,_ = plt.hist(data2, bins = 10, histtype=u'step')
+n2,x2,_ = plt.hist(data2, bins = bin, histtype=u'step')
 bin_centers_2 = 0.2*(x2[1:]+x2[:-1])
-n3,x3,_ = plt.hist(data3, bins = 10, histtype=u'step')
+n3,x3,_ = plt.hist(data3, bins = bin, histtype=u'step')
 bin_centers_3 = 0.3*(x3[1:]+x3[:-1])
-n4,x4,_ = plt.hist(data4, bins = 10, histtype=u'step')
+n4,x4,_ = plt.hist(data4, bins = bin, histtype=u'step')
 bin_centers_4 = 0.4*(x4[1:]+x4[:-1])
-n5,x5,_ = plt.hist(data5, bins = 10, histtype=u'step')
+n5,x5,_ = plt.hist(data5, bins = bin, histtype=u'step')
 bin_centers_5 = 0.5*(x5[1:]+x5[:-1])
 plt.show()
 
 plt.plot(bin_centers_1,n1, color="red") ## using bin_centers rather than edges
-plt.plot(bin_centers_2,n2, color="yellow")
-plt.plot(bin_centers_3,n3, color="pink") 
+plt.plot(bin_centers_2,n2, color="orange")
+plt.plot(bin_centers_3,n3, color="pink")
 plt.plot(bin_centers_4,n4, color="green")
 plt.plot(bin_centers_5,n5, color="blue")
+
+plt.ylabel('Cantidad de particulas')
+plt.xlabel('Distancia Recorrida (m)')
 
 plt.legend(('5*10³','7.5*10³', '10*10³', '2.5*10⁴', '5*10⁴'))
 
