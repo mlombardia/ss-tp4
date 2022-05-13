@@ -30,8 +30,8 @@ public class SimulationController {
 
   public void simulate(double time) {
 
-      System.out.println("velocidad: " + this.particle.xVel);
-      System.out.println("posicion: " + this.particle.xPos);
+      //System.out.println("velocidad: " + this.particle.xVel);
+     // System.out.println("posicion: " + this.particle.xPos);
       this.integrator.updateData(deltaT, particle);
       fileGenerator.addToFile(this.particle.xPos, this.particle.xVel, time);
 
