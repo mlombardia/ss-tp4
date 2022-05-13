@@ -41,13 +41,13 @@ public class RadiationSimulator {
     }
 
     private void generateParticles() {
-        particles = new ArrayList<>();
+        particles.clear();
         double max = L / 2 + D, min = L / 2 - D;
         initialPos = Math.random() * (max - min) + min;
         boolean isPositive = true;
         boolean lastRow;
         int id = 0;
-        particles.add(new Particle(id++, 0, initialPos, 5 * Math.pow(10, 3), 0, M, 0.5, true));
+        particles.add(new Particle(id++, 0, initialPos, 5 * Math.pow(10, 4), 0, M, 0.5, true));
         for (int i = 0; i < Math.sqrt(N); i++) {
             lastRow = isPositive;
             for (int j = 0; j < Math.sqrt(N); j++) {
@@ -122,7 +122,7 @@ public class RadiationSimulator {
         for (Particle p : particles) {
             distance = Math.sqrt(Math.pow(particle.xPos - p.xPos, 2) + Math.pow(particle.yPos - p.yPos, 2));
             if (!p.equals(particle) && distance < DCut) {
-                System.out.printf("%.12f,%.20f\n", initialPos, longitudRecorrida);
+                System.out.printf("%.20f\n", longitudRecorrida);
                 return true;
             }
         }

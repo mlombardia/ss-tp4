@@ -58,7 +58,7 @@ public class App {
 
     //radiation particles
     for (int i = 0; i < 200; i++) {
-      double delta = Math.pow(10, -18);
+      double delta = Math.pow(10, -16);
       RadiationSimulator radiationSimulator = new RadiationSimulator(delta);
       radiationSimulator.simulate();
     }
