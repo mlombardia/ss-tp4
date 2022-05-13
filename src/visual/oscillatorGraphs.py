@@ -98,10 +98,10 @@ ax.plot(timeGP5, positionGP5, color="#067FD0", dashes=[2, 2, 5, 2]) # 2pt line, 
 ax.plot(timeBeeman, positionBeeman, color="#4ADEDE", dashes=[2, 2])
 ax.plot(timeVerlet, positionVerlet, color="#151A7B", dashes=[1, 2, 3, 2])
 
-plt.xlim(0, 5.1547 * 1)
+##plt.xlim(0.12 * 0, 5.1547)
 ##Escala para ver con zoom
-# plt.xlim(3.1544, 3.1547)
-# plt.ylim(0.9868, 0.9870)
+##plt.xlim(3.1544, 3.1547)
+##plt.ylim(0.971347, 0.97160)
 ax.set_xlabel('Tiempo (s)')
 ax.set_ylabel('Posicion (m)')
 
@@ -116,7 +116,7 @@ plt.close(fig)
 
 
 ## CALCULO LOS ERRORES
-errorAuxB = []
+'''errorAuxB = []
 errorAuxB = np.square(np.subtract(positionAnalytic,positionBeeman)).mean()
 errorAuxG = []
 errorAuxG = np.square(np.subtract(positionAnalytic,positionGP5)).mean()
@@ -126,7 +126,16 @@ errorAuxV = np.square(np.subtract(positionAnalytic,positionVerlet)).mean()
 print(errorAuxB)
 print(errorAuxG)
 print(errorAuxV)
+'''
 
+summation = 0  #variable to store the summation of differences
+n = len(positionAnalytic) #finding total number of items in list
+for i in range (0,n):  #looping through each element of the list
+  difference = positionAnalytic[i] - positionGP5[i]  #finding the difference between observed and predicted value
+  squared_difference = difference**2  #taking square of the differene 
+  summation = summation + squared_difference  #taking a sum of all the differences
+MSE = summation/n  #dividing summation by total values to obtain average
+print ("The Mean Square Error for GP5 is: " , MSE)
 
 summation = 0  #variable to store the summation of differences
 n = len(positionAnalytic) #finding total number of items in list
@@ -137,6 +146,14 @@ for i in range (0,n):  #looping through each element of the list
 MSE = summation/n  #dividing summation by total values to obtain average
 print ("The Mean Square Error for Beeman is: " , MSE)
 
+summation = 0  #variable to store the summation of differences
+n = len(positionAnalytic) #finding total number of items in list
+for i in range (0,n):  #looping through each element of the list
+  difference = positionAnalytic[i] - positionVerlet[i]  #finding the difference between observed and predicted value
+  squared_difference = difference**2  #taking square of the differene 
+  summation = summation + squared_difference  #taking a sum of all the differences
+MSE = summation/n  #dividing summation by total values to obtain average
+print ("The Mean Square Error for Verlet is: " , MSE)
 
 
 
@@ -144,18 +161,17 @@ print ("The Mean Square Error for Beeman is: " , MSE)
 file = open("dtsVsEB.txt", 'r')
 InputLines = file.readlines()
 
-errors = []
+errorsB = []
 dts = []
 count = 0
 
 for line in InputLines:
     if count >= 1:
         str = line.strip().split(' ')
-        errors.append(float(str[0]))
+        errorsB.append(float(str[0]))
         dts.append(float(str[1]))
     count += 1
 
-fig, ax = plt.subplots()
 
 ax.scatter(dts, errors)
 
@@ -175,19 +191,17 @@ plt.close(fig)
 file = open("dtsVsEG.txt", 'r')
 InputLines = file.readlines()
 
-errors = []
+errorsG = []
 dts = []
 count = 0
 
 for line in InputLines:
     if count >= 1:
         str = line.strip().split(' ')
-        errors.append(float(str[0]))
+        errorsG.append(float(str[0]))
         dts.append(float(str[1]))
     count += 1
 
-fig, ax = plt.subplots()
-ax.scatter(dts, errors)
 
 ax.set_xlabel('dts ')
 ax.set_ylabel('error (m)')
@@ -204,27 +218,33 @@ plt.close(fig)
 file = open("dtsVsEV.txt", 'r')
 InputLines = file.readlines()
 
-errors = []
+errorsV = []
 dts = []
 count = 0
 
 for line in InputLines:
     if count >= 1:
         str = line.strip().split(' ')
-        errors.append(float(str[0]))
+        errorsV.append(float(str[0]))
         dts.append(float(str[1]))
     count += 1
 
 fig, ax = plt.subplots()
 
-ax.scatter(dts, errors)
+ax.plot(dts, errorsB)
+ax.plot(dts, errorsV)
+ax.plot(dts, errorsG)
 
-ax.set_xlabel('dts ')
-ax.set_ylabel('error (m)')
+ax.set_xlabel('dts (s)')
+ax.set_ylabel('error cuadratico medio (m^2)')
 
-plt.xlim(3.1544 * 0 , 0.0006 * 1)
-plt.ylim(0.9826452 * 0, 0.0007 * 1)
+print()
+print ("errores B: " , errorsB)
+print ("errores G: " , errorsG)
+print ("erroresV: " , errorsV)
+print("dts : ", dts)
 
 plt.grid()
+ax.legend(('GP5', 'Beeman', 'Verlet'))
 plt.show()
 plt.close(fig)
