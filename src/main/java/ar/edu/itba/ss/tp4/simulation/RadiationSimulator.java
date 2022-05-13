@@ -27,6 +27,10 @@ public class RadiationSimulator {
 
     public VelocityVerlet verlet;
 
+    public double initialPos;
+
+    public double longitudRecorrida;
+
     FileRadiationGenerator fileRadiationGenerator = new FileRadiationGenerator();
     FileEnergyGenerator fileEnergyGenerator = new FileEnergyGenerator();
 
@@ -37,12 +41,13 @@ public class RadiationSimulator {
     }
 
     private void generateParticles() {
+        particles.clear();
         double max = L / 2 + D, min = L / 2 - D;
-        double initialPos = Math.random() * (max - min) + min;
+        initialPos = Math.random() * (max - min) + min;
         boolean isPositive = true;
         boolean lastRow;
         int id = 0;
-        particles.add(new Particle(id++, 0, L / 2 + D/2 , 5 * Math.pow(10, 4), 0, M, 0.5, true));
+        particles.add(new Particle(id++, 0, initialPos, 5 * Math.pow(10, 4), 0, M, 0.5, true));
         for (int i = 0; i < Math.sqrt(N); i++) {
             lastRow = isPositive;
             for (int j = 0; j < Math.sqrt(N); j++) {
@@ -57,7 +62,7 @@ public class RadiationSimulator {
     public void simulate() {
         double energiaCinetica = 0;
         double energiaPotencial = 0;
-        double longitudRecorrida = 0;
+//        double longitudRecorrida = 0;
         double initialX = 0, initialY = 0;
         double updatedX = 0, updatedY = 0;
         boolean firstStep = true;
@@ -68,7 +73,7 @@ public class RadiationSimulator {
         boolean firstTime = true;
         double initialEnergy = 0;
         fileRadiationGenerator.addParticles(particles);
-        System.out.printf("%.12f %.12f\n", particles.get(0).xPos, particles.get(0).yPos);
+//        System.out.printf("%.12f %.12f\n", particles.get(0).xPos, particles.get(0).yPos);
         while (!cutCondition(firstStep)) {
             initialX = particles.get(0).xPos;
             initialY = particles.get(0).yPos;
@@ -78,46 +83,46 @@ public class RadiationSimulator {
             updatedX = particles.get(0).xPos;
             updatedY = particles.get(0).yPos;
 
-            if(firstTime){
+            if (firstTime) {
                 initialEnergy = calculatesCineticEnergy() + calculatesPotentialEnergy();
                 firstTime = false;
             }
 
             timeEnergy += deltaT;
             firstStep = false;
-            if(time > Delta2){
+            if (time > Delta2) {
                 fileRadiationGenerator.addParticles(particles);
-                System.out.printf("%.12f %.12f\n", particles.get(0).xPos, particles.get(0).yPos);
+//                System.out.printf("%.12f %.12f\n", particles.get(0).xPos, particles.get(0).yPos);
                 time = 0;
                 time0 = System.currentTimeMillis();
                 calculatesTotalEnergy(initialEnergy, timeEnergy);
             }
-            time += ((System.currentTimeMillis() -time0)/1000.0);
+            time += ((System.currentTimeMillis() - time0) / 1000.0);
             energiaCinetica += calculatesCineticEnergy();
             energiaPotencial += calculatesPotentialEnergy();
             longitudRecorrida += calculatesTraveledLength(initialX, initialY, updatedX, updatedY);
         }
         fileRadiationGenerator.closeFiles();
         fileEnergyGenerator.closeFiles();
-        System.out.println("Energia Total(divido steps) = " + (energiaCinetica + energiaPotencial)/steps);
-        System.out.println("energia Total = " + (energiaCinetica + energiaPotencial));
-        System.out.println("Energia Cinetica = " + energiaCinetica);
-        System.out.println("Energia Potencial = " + energiaPotencial);
-        System.out.println("Longitud recorrida = " + longitudRecorrida);
+//        System.out.println("Energia Total(divido steps) = " + (energiaCinetica + energiaPotencial)/steps);
+//        System.out.println("energia Total = " + (energiaCinetica + energiaPotencial));
+//        System.out.println("Energia Cinetica = " + energiaCinetica);
+//        System.out.println("Energia Potencial = " + energiaPotencial);
+//        System.out.printf("Longitud recorrida = %.20f\n", longitudRecorrida);
     }
 
     public boolean cutCondition(boolean firstStep) {
         Particle particle = particles.get(0);
         double distance;
         if ((!firstStep && particle.xPos <= 0) || particle.xPos >= rightVertical || particle.yPos <= 0 || particle.yPos >= L) {
-            System.out.println("a");
+//            System.out.println("a");
             return true;
         }
 
         for (Particle p : particles) {
             distance = Math.sqrt(Math.pow(particle.xPos - p.xPos, 2) + Math.pow(particle.yPos - p.yPos, 2));
             if (!p.equals(particle) && distance < DCut) {
-                System.out.println('b');
+                System.out.printf("%.20f\n", longitudRecorrida);
                 return true;
             }
         }
@@ -126,12 +131,12 @@ public class RadiationSimulator {
         return false;
     }
 
-    public double calculatesCineticEnergy(){
-        double velocity = Math.sqrt(Math.pow(particles.get(0).xVel,2) + Math.pow(particles.get(0).yVel,2));
-        return (0.5*particles.get(0).weight*Math.pow(velocity,2));
+    public double calculatesCineticEnergy() {
+        double velocity = Math.sqrt(Math.pow(particles.get(0).xVel, 2) + Math.pow(particles.get(0).yVel, 2));
+        return (0.5 * particles.get(0).weight * Math.pow(velocity, 2));
     }
 
-    public double calculatesPotentialEnergy(){
+    public double calculatesPotentialEnergy() {
         Particle movingParticle = particles.get(0);
         double energy = movingParticle.charge * k;
         double sumX = 0, sumY = 0, rx, ry, r, q;
@@ -145,15 +150,15 @@ public class RadiationSimulator {
                 sumY += q;
             }
         }
-        return (energy*sumX + energy*sumY);
+        return (energy * sumX + energy * sumY);
     }
 
-    public double calculatesTraveledLength(double initialX, double initialY, double updatedX, double updatedY){
+    public double calculatesTraveledLength(double initialX, double initialY, double updatedX, double updatedY) {
 
         return Math.sqrt(Math.pow((initialX - updatedX), 2) + Math.pow((initialY - updatedY), 2));
     }
 
-    public void calculatesTotalEnergy(double initialEnergy, double time){
+    public void calculatesTotalEnergy(double initialEnergy, double time) {
         double cinetic_energy;
         double potential_energy;
 
