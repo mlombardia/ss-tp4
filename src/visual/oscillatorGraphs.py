@@ -7,7 +7,6 @@ from matplotlib import pyplot as plt
 from statistics import mean 
 
 # Read Analytic input
-
 file = open("../../OscillatorAnalytical.csv", 'r')
 InputLines = file.readlines()
 
@@ -49,7 +48,6 @@ for line in InputLines:
     count += 1
 
 # Read Beeman input
-
 file = open("../../OscillatorBeeman.csv", 'r')
 InputLines = file.readlines()
 
@@ -71,7 +69,6 @@ for line in InputLines:
 
 
 # Read Verlet input
-
 file = open("../../OscillatorVerlet.csv", 'r')
 InputLines = file.readlines()
 
@@ -92,6 +89,8 @@ for line in InputLines:
     count += 1
 
 
+
+## PLOT 
 fig, ax = plt.subplots()
 
 ax.plot(timeAnalytic, positionAnalytic, color="#E63B60")
@@ -99,10 +98,12 @@ ax.plot(timeGP5, positionGP5, color="#067FD0", dashes=[2, 2, 5, 2]) # 2pt line, 
 ax.plot(timeBeeman, positionBeeman, color="#4ADEDE", dashes=[2, 2])
 ax.plot(timeVerlet, positionVerlet, color="#151A7B", dashes=[1, 2, 3, 2])
 
-
-##ax.set_title("Comparacion de integradores en oscilador")
+plt.xlim(0, 5.1547 * 1)
+##Escala para ver con zoom
+# plt.xlim(3.1544, 3.1547)
+# plt.ylim(0.9868, 0.9870)
 ax.set_xlabel('Tiempo (s)')
-ax.set_ylabel('Posicion')
+ax.set_ylabel('Posicion (m)')
 
 plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
 ax.xaxis.major.formatter._useMathText = True
@@ -112,31 +113,113 @@ plt.close(fig)
 
 
 
-## ERROR CUADRATICO
-'''errors  = []
-dts = ['0.0001', '0.0002', '0.0003', '0.0004', '0.0005', '0.0006', '0.0007', '0.0008', '0.0009', '0.0010']
+## CALCULO LOS ERRORES
+errorAuxB = []
+errorAuxB = np.square(np.subtract(positionAnalytic,positionBeeman)).mean()
+errorAuxG = []
+errorAuxG = np.square(np.subtract(positionAnalytic,positionGP5)).mean()
+errorAuxV = []
+errorAuxV = np.square(np.subtract(positionAnalytic,positionVerlet)).mean()
 
-for n in dts.__len__:
-    errors.append(mean_squared_error(positionAnalytic, positionGP5))
-    errors.append(np.square(np.subtract(positionAnalytic,positionGP5)).mean())
+print(errorAuxB)
+print(errorAuxG)
+print(errorAuxV)
 
+
+summation = 0  #variable to store the summation of differences
+n = len(positionAnalytic) #finding total number of items in list
+for i in range (0,n):  #looping through each element of the list
+  difference = positionAnalytic[i] - positionBeeman[i]  #finding the difference between observed and predicted value
+  squared_difference = difference**2  #taking square of the differene 
+  summation = summation + squared_difference  #taking a sum of all the differences
+MSE = summation/n  #dividing summation by total values to obtain average
+print ("The Mean Square Error for Beeman is: " , MSE)
+
+
+
+
+## ERROR CUADRATICO PARA BEEMAN
+file = open("dtsVsEB.txt", 'r')
+InputLines = file.readlines()
+
+errors = []
+dts = []
+count = 0
+
+for line in InputLines:
+    if count >= 1:
+        str = line.strip().split(' ')
+        errors.append(float(str[0]))
+        dts.append(float(str[1]))
+    count += 1
 
 fig, ax = plt.subplots()
 
-ax.scatter(errors, dts)
+ax.scatter(dts, errors)
 
-##y_error = 20*0.10             ## El 10% de error
-#y_error = [stdDev1, stdDev2, stdDev3, stdDev4, stdDev5, stdDev6, stdDev7]
+ax.set_xlabel('dts ')
+ax.set_ylabel('error (m)')
 
+plt.xlim(3.1544 * 0 , 0.0006 * 1)
+plt.ylim(0.9826452 * 0, 0.0007 * 1)
 
-
-#plt.errorbar(n,averageTime, yerr = y_error, capsize = 3)
-##ax.set_title("Fraccion de particulas en los recinto traves del tiempo con N=??")
-ax.set_xlabel('Dts (s)')
-ax.set_ylabel('Error cuadratico medio')
-
-plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
-ax.xaxis.major.formatter._useMathText = True
 plt.show()
 plt.close(fig)
-'''
+
+
+
+## ERROR CUADRATICO PARA GP5
+file = open("dtsVsEG.txt", 'r')
+InputLines = file.readlines()
+
+errors = []
+dts = []
+count = 0
+
+for line in InputLines:
+    if count >= 1:
+        str = line.strip().split(' ')
+        errors.append(float(str[0]))
+        dts.append(float(str[1]))
+    count += 1
+
+fig, ax = plt.subplots()
+ax.scatter(dts, errors)
+
+ax.set_xlabel('dts ')
+ax.set_ylabel('error (m)')
+
+plt.xlim(3.1544 * 0 , 0.0006 * 1)
+plt.ylim(0.9826452 * 0, 0.0007 * 1)
+
+plt.show()
+plt.close(fig)
+
+
+## ERROR CUADRATICO PARA VERLET
+file = open("dtsVsEV.txt", 'r')
+InputLines = file.readlines()
+
+errors = []
+dts = []
+count = 0
+
+for line in InputLines:
+    if count >= 1:
+        str = line.strip().split(' ')
+        errors.append(float(str[0]))
+        dts.append(float(str[1]))
+    count += 1
+
+fig, ax = plt.subplots()
+
+ax.scatter(dts, errors)
+
+ax.set_xlabel('dts ')
+ax.set_ylabel('error (m)')
+
+plt.xlim(3.1544 * 0 , 0.0006 * 1)
+plt.ylim(0.9826452 * 0, 0.0007 * 1)
+
+plt.show()
+plt.close(fig)

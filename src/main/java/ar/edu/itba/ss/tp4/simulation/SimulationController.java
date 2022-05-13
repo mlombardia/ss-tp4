@@ -19,6 +19,7 @@ public class SimulationController {
     this.acceleration = 0;
     this.deltaT = deltaT;
     this.particle = new Particle(1,0,0,0,70);
+    this.particle.xVel =  -1 * 100/(2* particle.weight);
     this.integrator = integrator;
     this.fileGenerator = fileGenerator;
     if(integrator instanceof GP5){
@@ -29,8 +30,8 @@ public class SimulationController {
 
   public void simulate(double time) {
 
-      System.out.println("velocidad: " + this.particle.xVel);
-      System.out.println("posicion: " + this.particle.xPos);
+      //System.out.println("velocidad: " + this.particle.xVel);
+     // System.out.println("posicion: " + this.particle.xPos);
       this.integrator.updateData(deltaT, particle);
       fileGenerator.addToFile(this.particle.xPos, this.particle.xVel, time);
 

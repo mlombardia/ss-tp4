@@ -42,13 +42,13 @@ public class App {
     Integrator verlet = new VelocityVerlet();
     SimulationController controller3 = new SimulationController(deltaT, verlet, fileGeneratorVerlet);
 
-    double timeAux = System.currentTimeMillis()/1000.0;
-    while(time < 10000) {
+    double timeAux = System.currentTimeMillis()/10000000.0;
+    while(time < 5) {
       controller.simulate(time);
       controller4.simulate(time);
       controller2.simulate(time);
       controller3.simulate(time);
-      time += ((System.currentTimeMillis()/1000.0 - timeAux));
+      time += ((System.currentTimeMillis()/10000000.0 - timeAux));
     }
     controller.closeFiles();
     controller2.closeFiles();
@@ -57,7 +57,10 @@ public class App {
 
 
     //radiation particles
-    RadiationSimulator radiationSimulator = new RadiationSimulator();
-    radiationSimulator.simulate();
+    for (int i = 0; i < 200; i++) {
+      double delta = Math.pow(10, -16);
+      RadiationSimulator radiationSimulator = new RadiationSimulator(delta);
+      radiationSimulator.simulate();
+    }
   }
 }
